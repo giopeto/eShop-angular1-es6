@@ -1,14 +1,11 @@
+import groupsService from './groups.service';
+
 export default class GroupsController {
 
-	constructor($scope, $state, groupService, groups) {
+	constructor($scope, $state, groups) {
 		this.$scope = $scope;
 		this.$state = $state;
-		this.groupService = groupService;
 		this.groups = groups;
-	}
-
-	get() {
-		this.groupService.get();
 	}
 
 	addEdit(id) {
@@ -17,10 +14,10 @@ export default class GroupsController {
 
 	remove({id, index}) {
 		if(!confirm('Are you sure?')) {
-			return
+			return;
 		}
 
-		this.groupService.remove(id).then(() => {
+		groupsService.remove(id).then(() => {
 			this.groups.splice(index, 1);
 			this.$scope.$apply();
 		});	

@@ -1,7 +1,6 @@
-import angular from 'angular';
 import * as Api from '../../Api';
 
-class GroupService {
+class GroupClass {
 
 	constructor() {
 		this.GROUPS_URL = `${Api.API_BASE_URL}/groups`;
@@ -28,6 +27,5 @@ class GroupService {
 	}
 }
 
-export default angular.module('services.groupService', [])
-	.service('groupService', GroupService)
-	.name;
+const GroupService = new GroupClass();
+export default GroupService;

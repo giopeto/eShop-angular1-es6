@@ -1,3 +1,5 @@
+import groupsService from './groups.service';
+
 routes.$inject = ['$stateProvider'];
 
 export default function routes($stateProvider) {
@@ -9,8 +11,8 @@ export default function routes($stateProvider) {
 		controller: 'GroupsController',
 		controllerAs: 'vm',
 		resolve: {
-			groups: function(groupService) {
-				return groupService.get();
+			groups: function() {
+				return groupsService.get();
 			},
 		}
 	};
@@ -22,9 +24,9 @@ export default function routes($stateProvider) {
 		controller: 'GroupsAddEditController',
 		controllerAs: 'vm',
 		resolve: {
-			group: function($stateParams, groupService) {
+			group: function($stateParams) {
 				return $stateParams.id ?
-					groupService.getById($stateParams.id) : 
+					groupsService.getById($stateParams.id) : 
 					{}
 			}
 		}
