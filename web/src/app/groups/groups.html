@@ -1,0 +1,28 @@
+<section>
+	<div class="container wow fadeInUp">
+		<h2>Groups 1</h2>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tbody>
+				<tr ng-repeat="row in vm.groups">
+					<td>{{row.name}}</td>
+					<td>
+						<button type="button" class="btn btn-warning btn-sm" ng-click="vm.addEdit(row.id)">
+							<i class="ion-edit"></i>&nbsp;Edit
+						</button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm" ng-click="vm.remove({id: row.id, index: $index})">
+							<i class="ion-trash-a"></i>&nbsp;Delete
+						</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<button type="submit" class="btn btn-warning btn-lg btn-block" ng-click="vm.addEdit(null)">
+			<span class="glyphicon glyphicon-plus"></span>&nbsp;Add new
+		</button>
+	</div>
+</section>
+
