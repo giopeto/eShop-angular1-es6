@@ -2,15 +2,16 @@
 	<div class="container wow fadeInUp">
 		<h2>{{vm.group.id?'Edit group':'Add new group'}}</h2>
 		<form role="form">
-			<div class="row">
-				<div class="form-group col-lg-12">
+			<div class="form-group">
+				<div class="form-group">
 					<label for="name">Name:</label>
 					<input type="text" class="form-control" id="name" name="name" ng-model="vm.group.name"/>
 				</div>
+				<div class="alert alert-danger" ng-if="vm.errorMsg.emptyName">
+					<strong>Name</strong> is required field
+				</div>
 			</div>
-			<div class="alert alert-danger" ng-if="vm.errorMsg.emptyName">
-				<strong>Name</strong> is required field
-			</div>
+			
 			<button type="submit" class="btn btn-success" ng-click="vm.save()" ng-if="!vm.group.id">
 				<i class="ion-plus"></i>&nbsp;Create
 			</button>

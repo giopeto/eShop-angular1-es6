@@ -1,4 +1,5 @@
 import itemsService from './items.service';
+import imagesService from '../images/images.service';
 
 export default class ItemsAddEditController {
 
@@ -13,7 +14,10 @@ export default class ItemsAddEditController {
 		if (this.hasErrors()) {
 			return;
 		}
-		itemsService.save(this.item).then(() => this.goBack());
+
+		itemsService.save(this.item)
+			.then(response => imagesService.save(response.id))
+			.then(() => this.goBack());
 	}
 
 	update() {
@@ -21,7 +25,11 @@ export default class ItemsAddEditController {
 			return;
 		}
 		
-		itemsService.update(this.item).then(() => this.goBack());
+		itemsService.update(this.item).then(response => {
+			imagesService.save(response.id); 
+			this.goBack()
+		});
+		
 	}
 
 	goBack() {

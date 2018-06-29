@@ -1,0 +1,36 @@
+<div>
+	<form enctype="multipart/form-data" class="form-horizontal">
+		<div class="form-group">
+			<div>
+				<label class="btn btn-lg btn-primary btn-file">
+					Add files <input type="file" id="multipartFile" style="display: none;" multiple accept="image/*">
+				</label>
+				<button type="button" ng-if= "vm.showUploadFileButton" ng-click="vm.uploadFiles()" ng-disabled="!vm.filesForUpload.src.length" class="btn btn-warning">Upload file</button>
+			</div>
+		</div>
+	</form>
+	<div>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tbody>
+				<tr ng-repeat="row in vm.filesToDomainMapper.fileIds">
+					<td>
+						<img class="img-fluid center-block" ng-src="{{vm.IMAGES_URL}}/file/{{row}}" alt="Item image" />
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm ion-trash-a" ng-click="vm.remove({index: $index, id: row})" />
+					</td>
+				</tr>
+				<tr ng-repeat="row in vm.filesForUpload.src">
+					<td>
+						<img class="img-fluid center-block" ng-src="{{row}}" alt="Item image" />
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm ion-trash-a" ng-click="vm.removeFromLocal({index: $index, id: row})" />
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</td>
+</div>

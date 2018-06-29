@@ -1,5 +1,6 @@
 package com.eshop.items.service;
 
+import com.eshop.files.service.FilesToDomainMapperService;
 import com.eshop.items.domain.Items;
 import com.eshop.items.repository.ItemsRepository;
 import org.junit.Before;
@@ -23,6 +24,7 @@ public class ItemsServiceTest {
 	private ItemsService itemsService;
 
 	@Mock private ItemsRepository itemsRepository;
+	@Mock private FilesToDomainMapperService filesToDomainMapperService;
 
 	private String itemId;
 	private String groupId;
@@ -30,7 +32,7 @@ public class ItemsServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		itemsService = new ItemsServiceImpl(itemsRepository);
+		itemsService = new ItemsServiceImpl(itemsRepository, filesToDomainMapperService);
 		itemId = randomUUID().toString();
 		groupId = randomUUID().toString();
 

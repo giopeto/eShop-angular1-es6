@@ -14,3 +14,4 @@
 **/package-lock.json
 **bower_components
 /web/public/
+debug.log
