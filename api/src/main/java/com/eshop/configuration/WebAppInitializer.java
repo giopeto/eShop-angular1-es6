@@ -1,10 +1,13 @@
 package com.eshop.configuration;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.ServletRegistration;
 
+@Configuration
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override

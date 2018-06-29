@@ -1,5 +1,6 @@
 package com.eshop.items.service;
 
+import com.eshop.files.service.FilesToDomainMapperService;
 import com.eshop.items.domain.Items;
 import com.eshop.items.repository.ItemsRepository;
 import lombok.NonNull;
@@ -12,10 +13,12 @@ import java.util.List;
 public class ItemsServiceImpl implements ItemsService {
 
 	@NonNull private final ItemsRepository itemsRepository;
+	@NonNull private final FilesToDomainMapperService filesToDomainMapperService;
 
 	@Autowired
-	public ItemsServiceImpl(ItemsRepository itemsRepository) {
+	public ItemsServiceImpl(ItemsRepository itemsRepository, FilesToDomainMapperService filesToDomainMapperService) {
 		this.itemsRepository = itemsRepository;
+		this.filesToDomainMapperService = filesToDomainMapperService;
 	}
 
 	@Override
@@ -40,11 +43,14 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public String delete(String id) {
+		filesToDomainMapperService.deleteByDomainId(id);
 		return itemsRepository.deleteById(id);
 	}
 
 	@Override
 	public void deleteImageToItem(String id) {
+
+
 
 	}
 }

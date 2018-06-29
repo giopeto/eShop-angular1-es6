@@ -36,8 +36,8 @@ public class GroupsController {
 	}
 
 	@RequestMapping(value = "{id}", method = PUT)
-	public void update(@PathVariable String id, @RequestBody Groups groups) {
-		groupsService.save(groups);
+	public Groups update(@PathVariable String id, @RequestBody Groups groups) {
+		return groupsService.save(groups);
 	}
 
 	@RequestMapping(method = GET)

@@ -36,8 +36,8 @@ public class ItemsController {
 	}
 
 	@RequestMapping(value = "{id}", method = PUT)
-	public void update(@PathVariable String id, @RequestBody Items items) {
-		itemsService.save(items);
+	public Items update(@PathVariable String id, @RequestBody Items items) {
+		return itemsService.save(items);
 	}
 
 	@RequestMapping(method = GET)
