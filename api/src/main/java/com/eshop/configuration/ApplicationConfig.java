@@ -11,7 +11,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Configuration
 @PropertySource({"classpath:application.properties"})
 @EnableMongoRepositories(basePackages = "com.eshop.*.repository")
-@ComponentScan( basePackages = "com" )
+@ComponentScan(basePackages = "com")
 public class ApplicationConfig {
 
 	private static final String DEFAULT_ENCODING = "utf-8";

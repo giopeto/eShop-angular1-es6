@@ -7,19 +7,6 @@ routes.$inject = ['$stateProvider'];
 
 export default function routes($stateProvider) {
 
-	const itemsState = {
-		name: 'items',
-		url: '/items',
-		template: require('./items.html'),
-		controller: 'ItemsController',
-		controllerAs: 'vm',
-		resolve: {
-			items: function() {
-				return itemsService.get();
-			},
-		}
-	};
-
 	const itemsAddEditView = {
 		template: require('./items_add_edit.html'),
 		controller: 'ItemsAddEditController',
@@ -33,6 +20,19 @@ export default function routes($stateProvider) {
 		controllerAs: 'vm'
 	};
 
+	const itemsState = {
+		name: 'items',
+		url: '/items',
+		template: require('./items.html'),
+		controller: 'ItemsController',
+		controllerAs: 'vm',
+		resolve: {
+			items: function() {
+				return itemsService.get();
+			},
+		}
+	};
+	
 	const itemsAddEditStateView = {
 		name: 'items_add_edit',
 		url: '/items_add_edit/:id',
