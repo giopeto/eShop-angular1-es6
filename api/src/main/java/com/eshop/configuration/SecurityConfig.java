@@ -12,9 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import static com.eshop.common.ApiConstants.API_BASE_URL;
 import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
@@ -24,6 +26,8 @@ import static org.springframework.http.HttpMethod.PUT;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String ROLE_ADMIN = "'ROLE_ADMIN'";
+	private static final String REMEMBER_ME_KEY = "remember-me-key";
+
 	@Autowired private UsersService usersService;
 
 	@Bean
@@ -32,6 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	public TokenBasedRememberMeServices rememberMeServices() {
+		return new TokenBasedRememberMeServices(REMEMBER_ME_KEY, usersService);
+	}
+
+	@Bean(name = "authenticationManager")
 	@Override
 	public AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManagerBean();
@@ -49,12 +58,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(POST, "/" + API_BASE_URL + "/**").access("hasRole(" + ROLE_ADMIN + ")")
-				.antMatchers(PUT, "/" + API_BASE_URL + "/**").access("hasRole(" + ROLE_ADMIN + ")")
-				.antMatchers(DELETE, "/" + API_BASE_URL + "/**").access("hasRole(" + ROLE_ADMIN + ")")
+				.antMatchers(POST, "/" + API_BASE_URL + "/users").permitAll()
+				.antMatchers(GET, "/" + API_BASE_URL + "/users").permitAll()
+				.antMatchers(POST, "/" + API_BASE_URL + "/**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers(PUT, "/" + API_BASE_URL + "/**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers(DELETE, "/" + API_BASE_URL + "/**").access("hasRole('ROLE_ADMIN')")
 			.and()
 				.csrf().disable()
-				.exceptionHandling().accessDeniedPage("/403");
+				.exceptionHandling().accessDeniedPage("/403")
+			/*.and()
+				.formLogin()
+				.loginProcessingUrl("/perform_login")
+			.and()
+				.logout()
+				.deleteCookies("JSESSIONID")*/
+			.and()
+				.rememberMe()
+				.rememberMeServices(rememberMeServices())
+				.key(REMEMBER_ME_KEY)
 				/*.anyRequest().authenticated()
 				.and()
 

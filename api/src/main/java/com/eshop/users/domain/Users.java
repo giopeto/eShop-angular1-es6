@@ -15,7 +15,6 @@ public class Users {
 	@Id private String id;
 
 	private String email;
-	private String userName;
 	private String password;
 	private String role;
 }
